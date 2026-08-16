@@ -18,8 +18,35 @@ ones, and all of them are road-based, so there is a single graph:
 | BRT | 702 | 30 MOBI-Rio busway lines — TransOeste, TransCarioca, TransOlímpica | amber, own toggle |
 | coach | 200 | 28 intermunicipal runs into Castelo | navy |
 
-**Rio's metro, the VLT Carioca tram and the SuperVia trains belong to other
-operators and are not in this feed**, so this map is buses only.
+The rail is a **second, synthesized feed**. MetrôRio, VLT Carioca and SuperVia
+publish no GTFS anywhere — the Mobility Database has no entry for any of them —
+so `pipeline/rail-feed.mjs` builds one out of OSM route relations, the way
+Thessaloniki's metro is built:
+
+| mode | lines | drawn |
+|---|---|---|
+| MetrôRio | L1, L2, L4 | official colours, metro treatment |
+| VLT Carioca | 1, 2, 3, 4 | teal |
+| SuperVia | Belford Roxo, Deodoro, Japeri, Santa Cruz, Saracuruna | violet |
+
+**What that feed can and cannot give**: it carries real geometry and real
+stations, and no timetable at all. The lines are drawn with their station discs
+and names; the journey planner cannot route over them, because there are no
+times to route with.
+
+Three traps in those relations, all the same shape — **OSM gives each direction
+its own stop_position node**, so comparing by node id silently fails:
+
+* SuperVia's Saracuruna is mapped as two consecutive sections (Central–Gramacho
+  and Gramacho–Saracuruna). Taking "the longest relation" cost the line its
+  outer eight stations, so sections are chained instead.
+* Chaining on the junction alone then folded each line's two directions into a
+  there-and-back loop (Deodoro → Deodoro, 37 stations), because the return
+  relation also begins where the outbound one ends.
+* The same id blindness left L2, L4, all four VLT lines, Santa Cruz and Belford
+  Roxo single-direction, because the return was never recognised as the return.
+
+All three are fixed by comparing station NAMES rather than node ids.
 
 Build quirks worth knowing:
 

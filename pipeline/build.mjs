@@ -7,8 +7,12 @@
 // corridors), 200 = coach (the intermunicipal runs into Castelo).
 // The BRT gets the engine's amber category — its own toggle, its own colour —
 // because it is a rapid-transit network on segregated busways, not a bus line
-// that happens to be quick. Rio's metro, VLT and SuperVia trains belong to
-// other operators and are not in this feed.
+// that happens to be quick.
+// Rio's RAIL — MetrôRio, the VLT Carioca and SuperVia — is not in that feed and
+// has no feed of its own anywhere, so it is synthesized from OSM route
+// relations by pipeline/rail-feed.mjs (the Thessaloniki pattern) and arrives
+// here as data/gtfs-rail with no shapes: station sequences are the matching
+// observations and the OSM track graph supplies the geometry.
 // Usage: node pipeline/build.mjs [--all | lines...]
 // Results land in shared files with properties.color/mode, so the frontend styles
 // them data-driven.
@@ -138,6 +142,13 @@ const norm = (sn) => sn.trim();
 // no rail modes here). The bus cfg is the whole map, so
 // nothing has to be filtered out of it.
 // Constanța has no metro, so the third cfg its siblings carry is absent here.
+// True when a line belongs to the metro cfg. The family's siblings ask the NAME
+// whether it looks like a metro line (/^M[0-9]/), which is no use for L1, L2 and
+// L4, so the answer comes from the cfg: the metro cfg fills this set with its
+// own keys and every downstream test reads it.
+const METRO_KEYS = new Set();
+const isMetro = (l) => METRO_KEYS.has(l);
+
 const MODES = [{
   mode: 'bus', label: 'buses', osmFile: 'data/osm/rio.json',
   graphMode: 'road', color: '#0059a9', colorDark: '#00294f',
@@ -149,11 +160,34 @@ const MODES = [{
     },
   ],
 }];
+
+// THREE rail cfgs on the synthesized feed. They are kept apart because they run
+// on different rails and answer to different toggles: the metro in its tunnels,
+// the VLT on street tracks, SuperVia on the mainline.
 const tramAll = tramLines.length === 1 && tramLines[0] === 'all';
-// No tram cfg: this network has no tracks, so `--tram` is accepted and ignored
-// rather than building an empty rail mode against a rail extract that does not
-// exist. The frontend drops the tram toggle to match.
-void tramAll;
+const tramSel = tramLines.filter(Boolean);
+const RAIL = 'data/osm/rio-rail.json';
+if (tramAll || tramSel.some((l) => /^L\d/.test(l))) MODES.push({
+  mode: 'tram', label: 'metro', osmFile: RAIL,
+  graphMode: 'tram', railKeep: new Set(['subway']), metroCfg: true,
+  color: '#d6212b', colorDark: '#7c1116',
+  all: tramAll, lines: tramAll ? [] : tramSel.filter((l) => /^L\d/.test(l)),
+  feeds: [{ tag: 'rail', dir: 'data/gtfs-rail', routeTypes: ['1'], mapKey: (sn) => sn.trim() }],
+});
+if (tramAll || tramSel.some((l) => /^VLT/.test(l))) MODES.push({
+  mode: 'tram', label: 'VLT Carioca', osmFile: RAIL,
+  graphMode: 'tram', railKeep: new Set(['tram', 'light_rail']),
+  color: '#00a0a0', colorDark: '#00595a',
+  all: tramAll, lines: tramAll ? [] : tramSel.filter((l) => /^VLT/.test(l)),
+  feeds: [{ tag: 'rail', dir: 'data/gtfs-rail', routeTypes: ['0'], mapKey: (sn) => sn.trim() }],
+});
+if (tramAll || tramSel.length) MODES.push({
+  mode: 'tram', label: 'SuperVia', osmFile: RAIL,
+  graphMode: 'tram', railKeep: new Set(['rail', 'light_rail']),
+  color: '#7d2b8b', colorDark: '#45164e',
+  all: tramAll, lines: tramAll ? [] : [],
+  feeds: [{ tag: 'rail', dir: 'data/gtfs-rail', routeTypes: ['2'], mapKey: (sn) => sn.trim() }],
+});
 
 // Feed coordinate fixes: poles the GTFS places on the wrong street, keyed by
 // `<feed tag>:<stop_id>` with the coordinates of that stop's node in OSM. A
@@ -298,7 +332,7 @@ async function processMode(cfg) {
   // NOT fall back to the mode color — that is the tram red, and a metro
   // ribbon in tram red reads as a tram line. Purple = "several metro lines".
   const METRO_MIX = '#7d2b8b', METRO_MIX_DARK = '#45164e';
-  const isMetroMix = (lines) => cfg.mode === 'tram' && lines.length > 1 && lines.every((l) => /^M[0-9]/.test(l));
+  const isMetroMix = (lines) => cfg.mode === 'tram' && lines.length > 1 && lines.every(isMetro);
   const colorOf = (lines) => {
     if (!cfg.lineColors) return cfg.color;
     const c = cfg.lineColors[lines[0]] || cfg.color;
@@ -347,6 +381,7 @@ async function processMode(cfg) {
       const key = feed.mapKey((r.route_short_name || '').trim(), r);
       if (!key) continue;
       routeToLine.set(r.route_id, key);
+      if (cfg.metroCfg) METRO_KEYS.add(key);
       if (r.route_type === '11') {
         cfg.trolleySet.add(key);
         cfg.lineColors[key] = TROLLEY_GREEN;
@@ -357,8 +392,13 @@ async function processMode(cfg) {
         cfg.mlineSet.add(key);
         cfg.lineColors[key] = MLINE_YELLOW;
         cfg.lineColorsDark[key] = MLINE_DARK;
+      } else if (cfg.metroCfg && /^[0-9A-F]{6}$/i.test(r.route_color || '')) {
+        // MetrôRio's own line colours, carried through from the OSM relations
+        // by rail-feed.mjs — a metro without them reads as one anonymous system
+        cfg.lineColors[key] = '#' + r.route_color.toUpperCase();
+        cfg.lineColorsDark[key] = darken('#' + r.route_color, 0.45);
       }
-      // The feed's own route_color is deliberately ignored, as everywhere in
+      // The feed's own route_color is otherwise ignored, as everywhere in
       // this family: colors here mean the MODE — navy bus, green trolleybus,
       // red tram. The service class stays legible in the line number itself.
       let s = keyFeeds.get(key);
@@ -584,7 +624,7 @@ async function processMode(cfg) {
       // metro shapes are tunnel approximations — often 40–70 m off the OSM
       // subway axis (street-grid drawn), so the snap net widens and the
       // emission softens; surface trams keep the tight default
-      if (cfg.mode === 'tram' && /^M[0-9]/.test(r.line)) {
+      if (cfg.mode === 'tram' && isMetro(r.line)) {
         opts = { sigma: 15, radii: [60, 120], maxCand: 16, perWay: 3, gapMin: GAP_MIN };
       }
     }
@@ -718,7 +758,7 @@ async function processMode(cfg) {
   // interchanges) platform records into a single entry keyed by name — one disc,
   // one label (user report: Irini drawn twice, once off the tracks).
   if (cfg.mode === 'tram') {
-    const isMetroEntry = (e) => [...e.lines].every((l) => /^M[0-9]/.test(l));
+    const isMetroEntry = (e) => [...e.lines].every(isMetro);
     const byStation = new Map();
     for (const [id, e] of stopAgg) {
       if (!isMetroEntry(e)) continue;
@@ -747,7 +787,7 @@ async function processMode(cfg) {
   const farNames = [];
   for (const e of stopAgg.values()) {
     const [sx, sy] = proj.toXY(e.lat, e.lon);
-    const isMetroStop = cfg.mode === 'tram' && [...e.lines].every((l) => /^M[0-9]/.test(l));
+    const isMetroStop = cfg.mode === 'tram' && [...e.lines].every(isMetro);
     let best = null, bestRun = null;
     // candidates are ONLY the runs that actually call at this pole: on a
     // double-track street the pole of one direction can lie nearer the
@@ -921,7 +961,7 @@ async function processMode(cfg) {
         lines: p.badgeLines.map((line) => ({
           line, mode: p.mode, color: colorOf([line]), colorDark: colorDarkOf([line]),
           // metro rides the tram slot but answers to its own frontend toggle
-          ...(p.mode === 'tram' && /^M[0-9]/.test(line) ? { metro: 1 } : {}),
+          ...(p.mode === 'tram' && isMetro(line) ? { metro: 1 } : {}),
         })),
       });
     }
@@ -987,7 +1027,7 @@ async function processMode(cfg) {
       if (n === arr.length) flags.trolley = 'all';
       else if (n > 0) flags.trolley = 'mix';
     }
-    if (cfg.mode === 'tram' && arr.every((l) => /^M[0-9]/.test(l))) flags.metro = 1;
+    if (cfg.mode === 'tram' && arr.every(isMetro)) flags.metro = 1;
     if (cfg.mlineSet && cfg.mlineSet.size) {
       const n = arr.filter((l) => cfg.mlineSet.has(l)).length;
       if (n === arr.length) flags.mline = 'all';
@@ -1003,7 +1043,7 @@ async function processMode(cfg) {
   // overlap. linesKey is numSort-sorted, so the later line (M4 over M1) sits
   // on top consistently. Stops keep colorOf(): a shared station ring stays
   // purple = "several metro lines call here".
-  const perLine = (arr) => (arr.length > 1 && arr.every((l) => /^M[0-9]/.test(l)))
+  const perLine = (arr) => (arr.length > 1 && arr.every(isMetro))
     ? arr.map((l) => [l]) : [arr];
   const streetFeatures = [];
   for (const r of mergedRuns) {

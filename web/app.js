@@ -142,7 +142,10 @@ async function init() {
   // Panel (English, minimal): legend + mode toggles + expandable clickable line list.
   const nBus = meta.lines.filter((l) => l.mode === 'bus').length;
   const nBrt = meta.lines.filter((l) => l.color === MLINE_YELLOW).length;
-  document.getElementById('count').textContent = `(${nBus - nBrt} bus · ${nBrt} BRT)`;
+  const rail = meta.lines.filter((l) => l.mode === 'tram');
+  const nMetro = rail.filter((l) => /^L\d/.test(l.line)).length;
+  document.getElementById('count').textContent =
+    `(${nBus - nBrt} bus · ${nBrt} BRT · ${nMetro} metro · ${rail.length - nMetro} VLT & SuperVia)`;
   document.getElementById('stamp').textContent = new Date(meta.generatedAt).toLocaleDateString('en-GB');
   // SMTT numbers all three modes from one pool, so a key IS the printed
   // number and nothing is stripped for display — same identity as build.mjs.

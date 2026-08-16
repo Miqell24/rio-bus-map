@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-16T11:29:47.391Z",
+  "generatedAt": "2026-08-16T12:55:03.999Z",
   "bbox": [
     -43.722525,
     -23.066731,
     -43.160063,
-    -22.7844
+    -22.744139
   ],
   "badgeBands": [
     [
@@ -33,6 +33,21 @@
       "mode": "bus",
       "label": "buses",
       "color": "#0059a9"
+    },
+    {
+      "mode": "tram",
+      "label": "metro",
+      "color": "#d6212b"
+    },
+    {
+      "mode": "tram",
+      "label": "VLT Carioca",
+      "color": "#00a0a0"
+    },
+    {
+      "mode": "tram",
+      "label": "SuperVia",
+      "color": "#7d2b8b"
     }
   ],
   "lines": [
@@ -23318,6 +23333,573 @@
             "rawStretchCount": 0,
             "rawMeters": 0,
             "meanError": 0.707307115831342,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "L1",
+      "mode": "tram",
+      "color": "#008DD0",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "General Osório / Ipanema",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 20,
+          "lengthKm": 16.93,
+          "stats": {
+            "observations": 20,
+            "matched": 20,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Uruguai / Tijuca",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 20,
+          "lengthKm": 16.94,
+          "stats": {
+            "observations": 20,
+            "matched": 20,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "L2",
+      "mode": "tram",
+      "color": "#00A551",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Botafogo",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 25,
+          "lengthKm": 30.37,
+          "stats": {
+            "observations": 25,
+            "matched": 25,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 1.8588137269639518,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Pavuna",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 25,
+          "lengthKm": 30.37,
+          "stats": {
+            "observations": 25,
+            "matched": 25,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 1.858813726963952,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "L4",
+      "mode": "tram",
+      "color": "#F7941E",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Jardim Oceânico / Barra da Tijuca",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 6,
+          "lengthKm": 12.3,
+          "stats": {
+            "observations": 6,
+            "matched": 6,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "General Osório / Ipanema",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 6,
+          "lengthKm": 12.31,
+          "stats": {
+            "observations": 6,
+            "matched": 6,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "VLT1",
+      "mode": "tram",
+      "color": "#00a0a0",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Santos Dumont",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 16,
+          "lengthKm": 6.58,
+          "stats": {
+            "observations": 16,
+            "matched": 16,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Terminal Gentileza",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 15,
+          "lengthKm": 6.3,
+          "stats": {
+            "observations": 15,
+            "matched": 15,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "VLT2",
+      "mode": "tram",
+      "color": "#00a0a0",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Praça XV",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 11,
+          "lengthKm": 5.04,
+          "stats": {
+            "observations": 11,
+            "matched": 11,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Praia Formosa",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 11,
+          "lengthKm": 5.57,
+          "stats": {
+            "observations": 11,
+            "matched": 11,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "VLT3",
+      "mode": "tram",
+      "color": "#00a0a0",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Central",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 10,
+          "lengthKm": 3.96,
+          "stats": {
+            "observations": 10,
+            "matched": 10,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Santos Dumont",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 10,
+          "lengthKm": 3.96,
+          "stats": {
+            "observations": 10,
+            "matched": 10,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "VLT4",
+      "mode": "tram",
+      "color": "#00a0a0",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Terminal Gentileza",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 11,
+          "lengthKm": 5.56,
+          "stats": {
+            "observations": 11,
+            "matched": 11,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Praça XV",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 10,
+          "lengthKm": 5.1,
+          "stats": {
+            "observations": 10,
+            "matched": 10,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "Belford Roxo",
+      "mode": "tram",
+      "color": "#7d2b8b",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Belford Roxo",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 19,
+          "lengthKm": 32.91,
+          "stats": {
+            "observations": 19,
+            "matched": 19,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Central do Brasil",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 19,
+          "lengthKm": 32.91,
+          "stats": {
+            "observations": 19,
+            "matched": 19,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "Deodoro",
+      "mode": "tram",
+      "color": "#7d2b8b",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Deodoro",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 19,
+          "lengthKm": 21.93,
+          "stats": {
+            "observations": 19,
+            "matched": 19,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Central do Brasil",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 19,
+          "lengthKm": 21.78,
+          "stats": {
+            "observations": 19,
+            "matched": 19,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "Japeri",
+      "mode": "tram",
+      "color": "#7d2b8b",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Japeri",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 20,
+          "lengthKm": 39.61,
+          "stats": {
+            "observations": 20,
+            "matched": 16,
+            "noCandidates": 4,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Central do Brasil",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 20,
+          "lengthKm": 39.75,
+          "stats": {
+            "observations": 20,
+            "matched": 16,
+            "noCandidates": 4,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "Santa Cruz",
+      "mode": "tram",
+      "color": "#7d2b8b",
+      "dirs": [
+        {
+          "dir": "0",
+          "headsign": "Santa Cruz",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 23,
+          "lengthKm": 54.71,
+          "stats": {
+            "observations": 23,
+            "matched": 23,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 3.3372086027085603,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        },
+        {
+          "dir": "1",
+          "headsign": "Central do Brasil",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 23,
+          "lengthKm": 54.65,
+          "stats": {
+            "observations": 23,
+            "matched": 23,
+            "noCandidates": 0,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0.29336475273787116,
+            "roundaboutSegs": 0,
+            "extStart": 0,
+            "extEnd": 0
+          }
+        }
+      ]
+    },
+    {
+      "line": "Saracuruna",
+      "mode": "tram",
+      "color": "#7d2b8b",
+      "dirs": [
+        {
+          "dir": "Saracuruna",
+          "headsign": "Saracuruna",
+          "variants": 1,
+          "tripCount": 1,
+          "stops": 20,
+          "lengthKm": 25.37,
+          "stats": {
+            "observations": 20,
+            "matched": 17,
+            "noCandidates": 3,
+            "viterbiBreaks": 0,
+            "bridged": 0,
+            "rawStretchCount": 0,
+            "rawMeters": 0,
+            "meanError": 0,
             "roundaboutSegs": 0,
             "extStart": 0,
             "extEnd": 0
