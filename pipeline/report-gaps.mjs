@@ -69,7 +69,7 @@ log(`locations after grouping: ${clusters.length}`);
 
 // ---------- nearest named OSM street (approximate) ----------
 log('Indexing named OSM streets…');
-const osm = JSON.parse(readFileSync(join(ROOT, 'data/osm/poznan.json'), 'utf8'));
+const osm = JSON.parse(readFileSync(join(ROOT, 'data/osm/rio.json'), 'utf8'));
 const CELL = 250;
 const nameGrid = new Map();
 for (const el of osm.elements) {
