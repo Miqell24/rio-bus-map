@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T12:55:03.999Z",
+  "generatedAt": "2026-09-01T15:13:59.943Z",
   "bbox": [
     -43.722525,
     -23.066731,
@@ -42,7 +42,7 @@
     {
       "mode": "tram",
       "label": "VLT Carioca",
-      "color": "#00a0a0"
+      "color": "#d6212b"
     },
     {
       "mode": "tram",
@@ -23490,7 +23490,7 @@
     {
       "line": "VLT1",
       "mode": "tram",
-      "color": "#00a0a0",
+      "color": "#d6212b",
       "dirs": [
         {
           "dir": "0",
@@ -23539,7 +23539,7 @@
     {
       "line": "VLT2",
       "mode": "tram",
-      "color": "#00a0a0",
+      "color": "#d6212b",
       "dirs": [
         {
           "dir": "0",
@@ -23588,7 +23588,7 @@
     {
       "line": "VLT3",
       "mode": "tram",
-      "color": "#00a0a0",
+      "color": "#d6212b",
       "dirs": [
         {
           "dir": "0",
@@ -23637,7 +23637,7 @@
     {
       "line": "VLT4",
       "mode": "tram",
-      "color": "#00a0a0",
+      "color": "#d6212b",
       "dirs": [
         {
           "dir": "0",

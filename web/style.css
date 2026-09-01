@@ -120,11 +120,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
 .sw.line.tram { background: #d6212b; }
 .sw.line.mline { background: #e8a000; }
 .sw.line.metro-rio { background: linear-gradient(90deg, #008DD0 0 33%, #00A551 33% 66%, #F7941E 66%); }
-.sw.line.vlt { background: linear-gradient(90deg, #00a0a0 50%, #7d2b8b 50%); }
+.sw.line.vlt { background: linear-gradient(90deg, #d6212b 50%, #7d2b8b 50%); }
 .mini.l1 { background: #008DD0; }
 .mini.l2 { background: #00A551; }
 .mini.l4 { background: #F7941E; }
-.mini.vlt { background: #00a0a0; }
+.mini.vlt { background: #d6212b; }
 .mini.sv { background: #7d2b8b; }
 /* metro swatch: the four Sofia Metro line colors side by side */
 .sw.line.metro { background: linear-gradient(90deg, #EB2227 0 25%, #1C75BC 25% 50%, #39B54A 50% 75%, #FFDE17 75% 100%); }

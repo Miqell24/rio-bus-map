@@ -175,9 +175,12 @@ if (tramAll || tramSel.some((l) => /^L\d/.test(l))) MODES.push({
   feeds: [{ tag: 'rail', dir: 'data/gtfs-rail', routeTypes: ['1'], mapKey: (sn) => sn.trim() }],
 });
 if (tramAll || tramSel.some((l) => /^VLT/.test(l))) MODES.push({
+  // The VLT Carioca is a TRAM — street track through the port district — so it
+  // takes the family red, not a colour of its own. Official colours in this
+  // family are for metro and suburban rail; MetrôRio and SuperVia keep theirs.
   mode: 'tram', label: 'VLT Carioca', osmFile: RAIL,
   graphMode: 'tram', railKeep: new Set(['tram', 'light_rail']),
-  color: '#00a0a0', colorDark: '#00595a',
+  color: '#d6212b', colorDark: '#7c1116',
   all: tramAll, lines: tramAll ? [] : tramSel.filter((l) => /^VLT/.test(l)),
   feeds: [{ tag: 'rail', dir: 'data/gtfs-rail', routeTypes: ['0'], mapKey: (sn) => sn.trim() }],
 });
@@ -541,6 +544,23 @@ async function processMode(cfg) {
       const n = r.shapeLatLon.length, mid = Math.floor(n / 2);
       const i0 = near(s0, 0, mid), i1 = near(s1, mid, n);
       if (i1 - i0 >= 2 && (i0 > 0 || i1 < r.shapeLatLon.length - 1)) {
+        // A depot overshoot is a small overhang at an end, never the body of
+        // the line, so a trim that would drop more than a third of the run is
+        // refused. Splitting the search at the midpoint (above) keeps a ring
+        // route from collapsing outright; this keeps it from being shortened.
+        const segLen = (a, b) => {
+          let m = 0;
+          for (let i = a + 1; i <= b; i++) {
+            m += Math.hypot((r.shapeLatLon[i][0] - r.shapeLatLon[i - 1][0]) * 111320,
+              (r.shapeLatLon[i][1] - r.shapeLatLon[i - 1][1]) * 111320 * Math.cos(r.shapeLatLon[i][0] * Math.PI / 180));
+          }
+          return m;
+        };
+        const full = segLen(0, n - 1);
+        if (full > 0 && segLen(i0, i1) < full * 0.66) {
+          log(`  shape trim ${r.line}/${r.dir}: REFUSED — ${i0}..${i1} would keep only ${Math.round(100 * segLen(i0, i1) / full)}% of the run`);
+          continue;
+        }
         if (i0 > 5 || i1 < r.shapeLatLon.length - 6) log(`  shape trim ${r.line}/${r.dir}: kept ${i0}..${i1} of ${r.shapeLatLon.length} points (depot tails dropped)`);
         r.shapeLatLon = r.shapeLatLon.slice(i0, i1 + 1);
       }
