@@ -1217,7 +1217,7 @@ async function init() {
       const d = new Date();
       const pad = (n) => String(n).padStart(2, '0');
       const a = document.createElement('a');
-      a.download = `sofia-transit_${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}_${out.width}x${out.height}.png`;
+      a.download = `rio-transit_${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}_${out.width}x${out.height}.png`;
       a.href = URL.createObjectURL(blob);
       if (!window.__exportNoSave) a.click(); // test hook: render without downloading
       setTimeout(() => URL.revokeObjectURL(a.href), 30000);
@@ -1476,7 +1476,7 @@ async function init() {
       const d = new Date();
       const p2 = (v) => String(v).padStart(2, '0');
       const a = document.createElement('a');
-      a.download = `sofia-transit-giant_${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}_${Wf}x${Hf}.png`;
+      a.download = `rio-transit-giant_${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}_${Wf}x${Hf}.png`;
       a.href = URL.createObjectURL(blob);
       if (window.__exportNoSave) {
         window.__lastGiantURL = a.href; // test hook: decode-check without downloading
